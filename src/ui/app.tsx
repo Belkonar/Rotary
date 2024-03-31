@@ -2,6 +2,7 @@ import {createRoot} from 'react-dom/client';
 
 import Brightness4Icon from '@mui/icons-material/Brightness4';
 import Brightness7Icon from '@mui/icons-material/Brightness7';
+import SettingsIcon from '@mui/icons-material/Settings';
 import {
   AppBar,
   Box,
@@ -26,7 +27,7 @@ import ActionsMenu from './components/menus/actions-menu';
 import {getRoutes} from './routes';
 import {Provider} from "react-redux";
 import {store} from "./main-store";
-import {SimpleTreeView, TreeItem} from "@mui/x-tree-view";
+import {SimpleTreeView, TreeItem, TreeItem2} from "@mui/x-tree-view";
 
 export function Root() {
   const nav = useNavigate();
@@ -76,6 +77,10 @@ export function Root() {
           <Box>
             <IconButton sx={{ml: 1}} onClick={toggleTheme} color="inherit">
               {state.mode === 'dark' ? <Brightness7Icon/> : <Brightness4Icon/>}
+            </IconButton>
+
+            <IconButton onClick={() => nav('/settings')} sx={{ml: 1}} color="inherit">
+              <SettingsIcon />
             </IconButton>
           </Box>
         </Toolbar>
@@ -130,15 +135,8 @@ export function Root() {
           aria-label="file system navigator"
           sx={{ height: 200, flexGrow: 1, maxWidth: 400, overflowY: 'auto' }}
         >
-          <TreeItem itemId="1" label="Applications">
-            <TreeItem itemId="2" label="Calendar" />
-          </TreeItem>
-          <TreeItem itemId="5" label="Documents">
-            <TreeItem itemId="10" label="OSS" />
-            <TreeItem itemId="6" label="MUI">
-              <TreeItem itemId="8" label="index.js" />
-            </TreeItem>
-          </TreeItem>
+          <TreeItem2 itemId={"1"} label="Applications" />
+          <TreeItem2 itemId={"2"} label="Documents" />
         </SimpleTreeView>
       </Drawer>
       <Box
