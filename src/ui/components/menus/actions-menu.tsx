@@ -26,22 +26,22 @@ export default function ActionsMenu() {
       </ListItemButton>
     </ListItem>
     <ListItem disablePadding>
-      <ListItemButton onClick={() => nav('/accounts')}>
+      <ListItemButton>
         <ListItemIcon>
           <ArticleIcon />
         </ListItemIcon>
         <ListItemText>
-          Accounts
+          Environments
         </ListItemText>
       </ListItemButton>
     </ListItem>
     <ListItem disablePadding>
-      <ListItemButton onClick={() => nav('/schedules')}>
+      <ListItemButton>
         <ListItemIcon>
           <CalendarMonthIcon />
         </ListItemIcon>
         <ListItemText>
-          Schedule
+          Authorizers
         </ListItemText>
       </ListItemButton>
     </ListItem>

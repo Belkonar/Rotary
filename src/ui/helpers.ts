@@ -16,3 +16,17 @@ export function useInitialLoad(func: () => Promise<void>) {
     });
   }, []);
 }
+
+export function useAsyncEffect(func: () => Promise<void>, deps: unknown[]) {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    func().catch((err) => {
+      dispatch(addAlert({
+        type: 'error',
+        message: err.message,
+        autoHide: true
+      }));
+    });
+  }, deps);
+}

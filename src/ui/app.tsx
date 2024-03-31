@@ -12,13 +12,13 @@ import {
   ThemeProvider,
   Toolbar,
   Typography,
-  createTheme
+  createTheme, MenuItem, Select, FormControl, InputLabel, ListSubheader
 } from '@mui/material';
 import React, {useMemo, useState} from 'react';
 import {
   Outlet,
   RouterProvider,
-  createMemoryRouter,
+  createMemoryRouter, useNavigate,
 } from 'react-router-dom';
 import {AlertsComponent} from './components/alerts';
 import ActionsMenu from './components/menus/actions-menu';
@@ -26,9 +26,11 @@ import ActionsMenu from './components/menus/actions-menu';
 import {getRoutes} from './routes';
 import {Provider} from "react-redux";
 import {store} from "./main-store";
+import {SimpleTreeView, TreeItem} from "@mui/x-tree-view";
 
 export function Root() {
-  const drawerWidth = 200;
+  const nav = useNavigate();
+  const drawerWidth = 300;
 
   const [state, setState] = useState<{ mode: PaletteMode }>({
     mode: localStorage.getItem('theme') === 'dark' ? 'dark' : 'light',
@@ -68,7 +70,7 @@ export function Root() {
         sx={{zIndex: (theme) => theme.zIndex.drawer + 1}}
       >
         <Toolbar variant='dense'>
-          <Typography variant="h6" component="div" sx={{flexGrow: 1}}>
+          <Typography style={{cursor: 'pointer'}} onClick={() => nav('/')} variant="h6" component="div" sx={{flexGrow: 1}}>
             Rotary
           </Typography>
           <Box>
@@ -91,7 +93,53 @@ export function Root() {
         anchor="left"
       >
         <Toolbar variant='dense'/>
-        <ActionsMenu/>
+        <FormControl  variant="standard"  sx={{ m: 1, minWidth: 120 }} size="small">
+          <InputLabel id="demo-select-small-label">Environment</InputLabel>
+          <Select
+            labelId="demo-select-small-label"
+            id="demo-select-small"
+            label="Age"
+          >
+            <MenuItem value="">
+              <em>None</em>
+            </MenuItem>
+            <MenuItem value={10}>Ten</MenuItem>
+            <MenuItem value={20}>Twenty</MenuItem>
+            <MenuItem value={30}>Thirty</MenuItem>
+          </Select>
+        </FormControl>
+        <FormControl  variant="standard"  sx={{ m: 1, minWidth: 120 }} size="small">
+          <InputLabel id="demo-select-small-label">Application</InputLabel>
+          <Select
+            labelId="demo-select-small-label"
+            id="demo-select-small"
+            label="Age"
+          >
+            <MenuItem value="">
+              <em>None</em>
+            </MenuItem>
+            <MenuItem value={10}>Ten</MenuItem>
+            <MenuItem value={20}>Twenty</MenuItem>
+            <MenuItem value={30}>Thirty</MenuItem>
+          </Select>
+        </FormControl>
+        <ListSubheader component="div" id="nested-list-subheader">
+          Requests
+        </ListSubheader>
+        <SimpleTreeView
+          aria-label="file system navigator"
+          sx={{ height: 200, flexGrow: 1, maxWidth: 400, overflowY: 'auto' }}
+        >
+          <TreeItem itemId="1" label="Applications">
+            <TreeItem itemId="2" label="Calendar" />
+          </TreeItem>
+          <TreeItem itemId="5" label="Documents">
+            <TreeItem itemId="10" label="OSS" />
+            <TreeItem itemId="6" label="MUI">
+              <TreeItem itemId="8" label="index.js" />
+            </TreeItem>
+          </TreeItem>
+        </SimpleTreeView>
       </Drawer>
       <Box
         component="main"
